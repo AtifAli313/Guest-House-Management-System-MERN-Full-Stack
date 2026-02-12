@@ -84,15 +84,15 @@ const Contact = () => {
           <div className="space-y-4 pt-4">
             <div className="flex items-center gap-4 text-slate-700">
               <span className="text-accent">📍</span>
-              <p>123 Mountain View Road, Himalayas</p>
+              <p>GSGS CMH Road Gamba, Skardu</p>
             </div>
             <div className="flex items-center gap-4 text-slate-700">
               <span className="text-accent">📞</span>
-              <p>+91 98765 43210</p>
+              <p>+92 341 9020068</p>
             </div>
             <div className="flex items-center gap-4 text-slate-700">
               <span className="text-accent">✉️</span>
-              <p>hello@gangssengy.com</p>
+              <p>info@gangssengy.com</p>
             </div>
           </div>
         </div>

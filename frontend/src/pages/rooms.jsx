@@ -50,7 +50,7 @@ function Rooms() {
 
   if (loading) {
     return (
-      <section className="container mx-auto px-6 pt-32 pb-16">
+      <section className="container mx-auto px-6 pt-32 pb-16 bg-[#dad4f6] min-h-screen">
         <div className="max-w-7xl mx-auto space-y-12">
           <div className="text-center space-y-4">
             <h2 className="font-serif text-4xl md:text-5xl font-bold text-slate-900">Our Rooms</h2>
@@ -71,7 +71,7 @@ function Rooms() {
 
   if (error) {
     return (
-      <section className="container mx-auto px-6 pt-32 pb-16 text-center">
+      <section className="container mx-auto px-6 pt-32 pb-16 text-center bg-[#dad4f6] min-h-screen">
         <div className="max-w-7xl mx-auto space-y-12">
           <div className="text-center space-y-4">
             <h2 className="font-serif text-4xl md:text-5xl font-bold text-slate-900">Our Rooms</h2>

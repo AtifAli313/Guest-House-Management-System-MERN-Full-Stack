@@ -3,62 +3,85 @@ import { Link, useLocation } from "react-router-dom";
 
 const BookingConfirmation = () => {
     const location = useLocation();
-    const { booking } = location.state || {};
+    const { booking, method } = location.state || {}; // method might be undefined if not passed, handle gracefully
+
+    const isManualPayment = ['jazzcash', 'easypaisa', 'bank_transfer'].includes(method);
 
     return (
-        <div className="min-h-screen flex items-center justify-center bg-gray-50 px-4">
-            <div className="max-w-md w-full bg-white shadow-xl rounded-2xl p-8 text-center border border-gray-100">
-                <div className="w-20 h-20 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-6">
-                    <svg
-                        className="w-10 h-10 text-green-600"
-                        fill="none"
-                        stroke="currentColor"
-                        viewBox="0 0 24 24"
-                    >
-                        <path
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                            strokeWidth="2"
-                            d="M5 13l4 4L19 7"
-                        />
-                    </svg>
-                </div>
+        <div className="min-h-screen bg-[#dad4f6] pt-24 px-4 pb-12">
+            <div className="max-w-3xl mx-auto">
+                <div className="bg-white shadow-lg rounded-2xl overflow-hidden border border-gray-100">
 
-                <h2 className="text-3xl font-bold text-gray-900 mb-2">Booking Confirmed!</h2>
-                <p className="text-gray-600 mb-8">
-                    Thank you for your booking. We have sent a confirmation email to your registered address.
-                </p>
-
-                {booking && (
-                    <div className="bg-gray-50 rounded-lg p-4 mb-8 text-left text-sm">
-                        <p className="flex justify-between mb-2">
-                            <span className="text-gray-500">Booking Reference:</span>
-                            <span className="font-mono font-medium text-gray-900">#{booking._id.slice(-6).toUpperCase()}</span>
-                        </p>
-                        <p className="flex justify-between mb-2">
-                            <span className="text-gray-500">Room:</span>
-                            <span className="font-medium text-gray-900">{booking.room?.name || 'Luxury Room'}</span>
-                        </p>
-                        <p className="flex justify-between">
-                            <span className="text-gray-500">Total Amount:</span>
-                            <span className="font-bold text-green-600">${booking.totalAmount}</span>
-                        </p>
+                    {/* Header Section */}
+                    <div className="bg-white p-6 border-b border-gray-100 text-center">
+                        <div className="w-16 h-16 bg-[#D4AF37]/10 rounded-full flex items-center justify-center mx-auto mb-4">
+                            <svg className="w-8 h-8 text-[#D4AF37]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7" />
+                            </svg>
+                        </div>
+                        <h1 className="text-3xl font-serif font-bold text-gray-900 mb-2">Payment Successful</h1>
+                        <p className="text-gray-600">Your payment has been successfully received.</p>
                     </div>
-                )}
 
-                <div className="space-y-3">
-                    <Link
-                        to="/payments/my"
-                        className="block w-full bg-[#D4AF37] text-white font-semibold py-3 px-4 rounded-lg hover:bg-[#c09e32] transition duration-200 shadow-md hover:shadow-lg"
-                    >
-                        View My Bookings
-                    </Link>
-                    <Link
-                        to="/"
-                        className="block w-full bg-white text-gray-600 font-semibold py-3 px-4 rounded-lg border border-gray-300 hover:bg-gray-50 transition duration-200"
-                    >
-                        Back to Home
-                    </Link>
+                    {/* Content Section */}
+                    <div className="p-8 space-y-8">
+
+                        {/* Booking Status Notice */}
+                        <div className="bg-blue-50/50 border-l-4 border-blue-500 p-6 rounded-r-lg">
+                            <h3 className="text-lg font-semibold text-blue-900 mb-2">Booking is currently Pending Approval</h3>
+                            <div className="space-y-2 text-blue-800">
+                                <p>Your booking is currently under review and will be confirmed once approved by the administrator.</p>
+                                <p className="font-medium">Please note that room confirmation is not finalized until approval is completed.</p>
+                                <p className="text-sm mt-2">Current Status: <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-yellow-100 text-yellow-800">Pending</span></p>
+                            </div>
+                        </div>
+
+                        {/* Booking Details Summary */}
+                        {booking && (
+                            <div className="grid grid-cols-1 md:grid-cols-2 gap-6 p-6 bg-gray-50 rounded-xl">
+                                <div>
+                                    <p className="text-sm text-gray-500 uppercase tracking-wide font-semibold mb-1">Booking Reference</p>
+                                    <p className="font-mono text-lg text-gray-900">#{booking._id?.slice(-6).toUpperCase()}</p>
+                                </div>
+                                <div>
+                                    <p className="text-sm text-gray-500 uppercase tracking-wide font-semibold mb-1">Room</p>
+                                    <p className="text-lg text-gray-900">{booking.room?.name || 'Luxury Room'}</p>
+                                </div>
+                                <div>
+                                    <p className="text-sm text-gray-500 uppercase tracking-wide font-semibold mb-1">Amount Paid</p>
+                                    <p className="text-lg font-bold text-[#D4AF37]">Rs. {booking.totalAmount}</p>
+                                </div>
+                                <div>
+                                    <p className="text-sm text-gray-500 uppercase tracking-wide font-semibold mb-1">Payment Method</p>
+                                    <p className="text-lg text-gray-900 capitalize">{method?.replace('_', ' ') || 'card'}</p>
+                                </div>
+                            </div>
+                        )}
+
+                        {/* Manual Payment Specific Notice */}
+                        {isManualPayment && (
+                            <div className="text-sm text-gray-500 italic text-center border-t border-gray-100 pt-4">
+                                * Payment received via {method === 'bank_transfer' ? 'Bank Transfer' : method === 'easypaisa' ? 'EasyPaisa' : 'JazzCash'}.
+                                Booking approval will be done manually by admin.
+                            </div>
+                        )}
+
+                        {/* Actions */}
+                        <div className="flex flex-col sm:flex-row gap-4 justify-center pt-4">
+                            <Link
+                                to="/payments/my"
+                                className="inline-flex justify-center items-center px-8 py-3 bg-[#D4AF37] text-white font-bold rounded-lg hover:bg-[#c09e32] transition duration-300 shadow-md hover:shadow-lg"
+                            >
+                                View My Bookings
+                            </Link>
+                            <Link
+                                to="/"
+                                className="inline-flex justify-center items-center px-8 py-3 bg-white text-gray-600 font-bold rounded-lg border border-gray-300 hover:bg-gray-50 transition duration-300"
+                            >
+                                Back to Home
+                            </Link>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>

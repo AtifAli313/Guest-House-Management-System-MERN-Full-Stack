@@ -25,8 +25,8 @@ const Footer = () => {
                 <div>
                     <h4 className="text-lg font-bold mb-4 font-heading">Contact</h4>
                     <ul className="space-y-2 text-gray-400">
-                        <li>Skardu, Gilgit-Baltistan</li>
-                        <li>+92 300 1234567</li>
+                        <li>Skardu, Gilgit Baltistan</li>
+                        <li>+92 341 9020068</li>
                         <li>info@gangssengy.com</li>
                     </ul>
                 </div>

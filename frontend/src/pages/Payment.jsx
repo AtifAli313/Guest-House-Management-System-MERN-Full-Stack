@@ -2,6 +2,10 @@ import { useParams, useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
 import api from "../api/axios";
 import { useAuth } from "../context/authContext";
+import JazzCashLogo from "../assets/Logos/Jazzcash-logo.png";
+import EasypaisaLogo from "../assets/Logos/Easypaisa-logo.png";
+import CardLogo from "../assets/Logos/Card-logo.png";
+import BankLogo from "../assets/Logos/Bank-logo.png";
 
 const Payment = () => {
   const { bookingId } = useParams();
@@ -96,7 +100,7 @@ const Payment = () => {
       }
 
       // Navigate to confirmation with booking state
-      navigate("/booking-success", { state: { booking: booking } });
+      navigate("/booking-success", { state: { booking: booking, method: method } });
     } catch (err) {
       console.error(err);
       setError(err.response?.data?.message || "Payment processing failed. Please try again.");
@@ -198,21 +202,29 @@ const Payment = () => {
                 <label className="block text-sm font-semibold text-gray-700 mb-4 uppercase tracking-wider">Select Payment Method</label>
                 <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
                   {[
-                    { id: 'card', name: 'Card', icon: '💳' },
-                    { id: 'jazzcash', name: 'JazzCash', icon: '📱' },
-                    { id: 'easypaisa', name: 'EasyPaisa', icon: '📲' },
-                    { id: 'bank_transfer', name: 'Bank', icon: '🏛️' }
+                    { id: 'card', name: 'Card', image: CardLogo },
+                    { id: 'jazzcash', name: 'JazzCash', image: JazzCashLogo },
+                    { id: 'easypaisa', name: 'EasyPaisa', image: EasypaisaLogo },
+                    { id: 'bank_transfer', name: 'Bank', image: BankLogo }
                   ].map((m) => (
                     <button
                       key={m.id}
                       type="button"
                       onClick={() => setMethod(m.id)}
-                      className={`p-4 border rounded-xl flex flex-col items-center justify-center gap-2 transition-all duration-300 ${method === m.id
+                      className={`p-4 border rounded-xl flex flex-col items-center justify-center gap-2 transition-all duration-300 h-28 ${method === m.id
                         ? "border-[#D4AF37] bg-yellow-50/50 shadow-md ring-1 ring-[#D4AF37]"
                         : "border-gray-200 text-gray-500 hover:border-gray-300 hover:bg-gray-50"}`}
                     >
-                      <span className="text-2xl">{m.icon}</span>
-                      <span className="font-bold text-xs uppercase">{m.name}</span>
+                      {m.image ? (
+                        <img
+                          src={m.image}
+                          alt={m.name}
+                          className="h-10 w-auto object-contain"
+                        />
+                      ) : (
+                        <span className="text-2xl">{m.icon}</span>
+                      )}
+                      <span className="font-bold text-xs uppercase mt-1">{m.name}</span>
                     </button>
                   ))}
                 </div>
