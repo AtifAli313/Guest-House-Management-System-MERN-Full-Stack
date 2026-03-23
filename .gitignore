@@ -32,3 +32,7 @@ Thumbs.db
 .vscode/*
 !.vscode/extensions.json
 .idea/
+node_modules/
+node_modules/
+dist/
+.env
