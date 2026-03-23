@@ -1,14 +1,14 @@
 import React, { useState } from 'react';
 
 // Import images
-import g1 from '../assets/gallery/1.jpeg';
-import g2 from '../assets/gallery/2.jpeg';
-import g3 from '../assets/gallery/3.jpeg';
-import g4 from '../assets/gallery/4.jpeg';
-import g5 from '../assets/gallery/5.jpeg';
-import g6 from '../assets/gallery/6.jpeg';
-import g7 from '../assets/gallery/7.jpeg';
-import g8 from '../assets/gallery/8.jpeg';
+import g1 from '../assets/Gallery/1.jpeg';
+import g2 from '../assets/Gallery/2.jpeg';
+import g3 from '../assets/Gallery/3.jpeg';
+import g4 from '../assets/Gallery/4.jpeg';
+import g5 from '../assets/Gallery/5.jpeg';
+import g6 from '../assets/Gallery/6.jpeg';
+import g7 from '../assets/Gallery/7.jpeg';
+import g8 from '../assets/Gallery/8.jpeg';
 
 const Gallery = () => {
   const images = [g1, g2, g3, g4, g5, g6, g7, g8];
