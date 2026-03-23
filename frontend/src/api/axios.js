@@ -21,9 +21,7 @@
 
 import axios from "axios";
 
-const api = axios.create({
-  baseURL: "http://localhost:5000/api",
-});
+const API = axios.create({ baseURL: "/api" });
 
 // Attach token to every request
 api.interceptors.request.use((config) => {
